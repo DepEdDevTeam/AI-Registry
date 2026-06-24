@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import BrandGenerator from "@/components/collaboration/BrandGenerator";
+import ConfirmDeleteDialog from "@/components/collaboration/ConfirmDeleteDialog";
 import { useToast } from "@/hooks/use-toast";
 import { logAudit } from "@/lib/audit";
 import { generateToolLogoSvg } from "@/lib/toolLogo";
@@ -80,6 +81,7 @@ const PartnersPage = () => {
   const [toolEditOpen, setToolEditOpen] = useState(false);
   const [toolEditDraft, setToolEditDraft] = useState<{ id: string; tool_name: string; tool_url: string; tool_logo_svg: string } | null>(null);
   const [toolSaving, setToolSaving] = useState(false);
+  const [toolDeleteTarget, setToolDeleteTarget] = useState<{ id: string; tool_name: string } | null>(null);
   const toolLogoInputRef = React.useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const qc = useQueryClient();
@@ -166,6 +168,7 @@ const PartnersPage = () => {
     (partnerInfo.source === "partner" || partnerInfo.status === "approved");
   const canEdit = isOwnerPartner;
   const canAddTools = isOwnerPartner;
+  const canDeleteTools = isOwnerPartner;
   // Legacy alias for the AddAIToolModal owner check
   const isOwner = canAddTools;
   const isSignedIn = !!currentUserId;
@@ -389,9 +392,9 @@ const PartnersPage = () => {
                                 });
                                 setToolEditOpen(true);
                               }}
-                            >
-                              <Pencil className="mr-1 h-3 w-3" /> Edit
-                            </Button>
+                              >
+                                <Pencil className="mr-1 h-3 w-3" /> Edit
+                              </Button>
                           )}
                         </div>
                         <p className="mt-1 text-sm font-medium text-slate-600">{partnerInfo.name}</p>
@@ -577,6 +580,19 @@ const PartnersPage = () => {
               <Button variant="outline" onClick={() => setToolEditOpen(false)} disabled={toolSaving}>
                 Cancel
               </Button>
+              {canDeleteTools && (
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() => {
+                    if (!toolEditDraft) return;
+                    setToolDeleteTarget({ id: toolEditDraft.id, tool_name: toolEditDraft.tool_name });
+                  }}
+                  disabled={toolSaving}
+                >
+                  Delete Tool
+                </Button>
+              )}
               <Button
                 disabled={toolSaving}
                 onClick={async () => {
@@ -612,6 +628,45 @@ const PartnersPage = () => {
           </DialogContent>
         </Dialog>
       )}
+
+      <ConfirmDeleteDialog
+        open={!!toolDeleteTarget}
+        onClose={() => setToolDeleteTarget(null)}
+        itemName={toolDeleteTarget?.tool_name || ""}
+        itemType="Tool"
+        onConfirm={async () => {
+          if (!toolDeleteTarget) return;
+          setToolSaving(true);
+          try {
+            const before = (dbToolDetails || []).find((t: any) => t.id === toolDeleteTarget.id);
+            const { error: deleteError } = await supabase
+              .from("partner_tool_details")
+              .delete()
+              .eq("id", toolDeleteTarget.id);
+            if (deleteError) throw deleteError;
+
+            const currentTools = partnerInfo.tools ? partnerInfo.tools.split(",").map((t) => t.trim()).filter(Boolean) : [];
+            const updatedTools = currentTools.filter((name) => name !== toolDeleteTarget.tool_name).join(", ");
+            const { error: toolsError } = await supabase
+              .from("partners")
+              .update({ tools: updatedTools })
+              .eq("id", partnerInfo.id);
+            if (toolsError) throw toolsError;
+
+            await logAudit("delete", "partner_tool_details", toolDeleteTarget.id, before, null);
+            toast({ title: "Tool deleted", description: `"${toolDeleteTarget.tool_name}" was removed.` });
+            setToolDeleteTarget(null);
+            setToolEditOpen(false);
+            setToolEditDraft(null);
+            qc.invalidateQueries({ queryKey: ["partner-profile", partnerKey] });
+            refetchTools();
+          } catch (err: any) {
+            toast({ title: "Failed to delete", description: err.message, variant: "destructive" });
+          } finally {
+            setToolSaving(false);
+          }
+        }}
+      />
 
       {canEdit && editForm && (
         <Dialog open={editOpen} onOpenChange={setEditOpen}>

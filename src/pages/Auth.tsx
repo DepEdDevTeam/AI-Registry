@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,13 +28,16 @@ const Auth = () => {
         if (error) throw error;
         toast({ title: "Welcome back!", description: "You have successfully logged in." });
         navigate("/");
-      } else if (mode === "signup") {
+        return;
+      }
+
+      if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             data: { display_name: displayName },
-            emailRedirectTo: `${window.location.origin}/`,
+            emailRedirectTo: `${window.location.origin}/auth`,
           },
         });
         if (error) throw error;
@@ -43,18 +45,18 @@ const Auth = () => {
           title: "Check your email",
           description: "We sent a verification link to your email address. Please verify to continue.",
         });
-      } else {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/reset-password`,
-        });
-        if (error) throw error;
-        toast({
-          title: "Check your email",
-          description:
-            "If this account uses email and password, we'll send a reset link. If you signed up with Google, please use Continue with Google instead.",
-        });
-        setMode("login");
+        return;
       }
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `https://www.ai-registry-deped.site/reset-password`,
+      });
+      if (error) throw error;
+      toast({
+        title: "Check your email", 
+        description: "If this account uses email and password, we sent a reset link to that inbox.",
+      });
+      setMode("login");
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     } finally {
@@ -62,14 +64,13 @@ const Auth = () => {
     }
   };
 
-  const title =
-    mode === "login" ? "Welcome Back" : mode === "signup" ? "Create Account" : "Reset Password";
+  const title = mode === "login" ? "Welcome Back" : mode === "signup" ? "Create Account" : "Reset Password";
   const description =
     mode === "login"
       ? "Sign in to access the collaboration page"
       : mode === "signup"
       ? "Join the DepEd AI Registry community"
-      : "Enter your email and we'll send you a reset link";
+      : "Enter your email and we will send you a reset link";
 
   return (
     <div className="container mx-auto flex min-h-[80vh] items-center justify-center px-4">
@@ -137,15 +138,11 @@ const Auth = () => {
                 ? "Create Account"
                 : "Send Reset Link"}
             </Button>
-            {false && mode !== "forgot" && (
-              <></>
-            )}
             <div className="text-center text-sm">
               {mode === "forgot" ? (
                 <div className="space-y-3">
                   <p className="text-xs text-muted-foreground">
-                    Google-only accounts do not have an app password to reset.
-                    Use Google sign-in to continue.
+                    Use the email address tied to your account. Supabase will send a one-time reset link to that inbox.
                   </p>
                   <button
                     type="button"
