@@ -1,0 +1,1727 @@
+{
+    "swagger":  "2.0",
+    "info":  {
+                 "description":  "",
+                 "title":  "standard public schema",
+                 "version":  "14.5"
+             },
+    "host":  "pssdivbfpxipqpharqlo.supabase.co:443",
+    "basePath":  "/",
+    "schemes":  [
+                    "https"
+                ],
+    "consumes":  [
+                     "application/json",
+                     "application/vnd.pgrst.object+json;nulls=stripped",
+                     "application/vnd.pgrst.object+json",
+                     "text/csv"
+                 ],
+    "produces":  [
+                     "application/json",
+                     "application/vnd.pgrst.object+json;nulls=stripped",
+                     "application/vnd.pgrst.object+json",
+                     "text/csv"
+                 ],
+    "paths":  {
+                  "/":  {
+                            "get":  {
+                                        "produces":  [
+                                                         "application/openapi+json",
+                                                         "application/json"
+                                                     ],
+                                        "responses":  {
+                                                          "200":  {
+                                                                      "description":  "OK"
+                                                                  }
+                                                      },
+                                        "summary":  "OpenAPI description (this document)",
+                                        "tags":  [
+                                                     "Introspection"
+                                                 ]
+                                    }
+                        },
+                  "/partners":  {
+                                    "get":  {
+                                                "parameters":  [
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.id"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.name"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.email"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.tools"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.theme_config"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.created_at"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.updated_at"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.partners.proposed_by"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/select"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/order"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/range"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rangeUnit"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/offset"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/limit"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/preferCount"
+                                                                   }
+                                                               ],
+                                                "responses":  {
+                                                                  "200":  {
+                                                                              "description":  "OK",
+                                                                              "schema":  {
+                                                                                             "items":  {
+                                                                                                           "$ref":  "#/definitions/partners"
+                                                                                                       },
+                                                                                             "type":  "array"
+                                                                                         }
+                                                                          },
+                                                                  "206":  {
+                                                                              "description":  "Partial Content"
+                                                                          }
+                                                              },
+                                                "tags":  [
+                                                             "partners"
+                                                         ]
+                                            },
+                                    "post":  {
+                                                 "parameters":  [
+                                                                    {
+                                                                        "$ref":  "#/parameters/body.partners"
+                                                                    },
+                                                                    {
+                                                                        "$ref":  "#/parameters/select"
+                                                                    },
+                                                                    {
+                                                                        "$ref":  "#/parameters/preferPost"
+                                                                    }
+                                                                ],
+                                                 "responses":  {
+                                                                   "201":  {
+                                                                               "description":  "Created"
+                                                                           }
+                                                               },
+                                                 "tags":  [
+                                                              "partners"
+                                                          ]
+                                             },
+                                    "delete":  {
+                                                   "parameters":  [
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.id"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.name"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.email"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.tools"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.theme_config"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.created_at"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.updated_at"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.partners.proposed_by"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/preferReturn"
+                                                                      }
+                                                                  ],
+                                                   "responses":  {
+                                                                     "204":  {
+                                                                                 "description":  "No Content"
+                                                                             }
+                                                                 },
+                                                   "tags":  [
+                                                                "partners"
+                                                            ]
+                                               },
+                                    "patch":  {
+                                                  "parameters":  [
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.id"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.name"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.email"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.tools"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.theme_config"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.created_at"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.updated_at"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.partners.proposed_by"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/body.partners"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/preferReturn"
+                                                                     }
+                                                                 ],
+                                                  "responses":  {
+                                                                    "204":  {
+                                                                                "description":  "No Content"
+                                                                            }
+                                                                },
+                                                  "tags":  [
+                                                               "partners"
+                                                           ]
+                                              }
+                                },
+                  "/partner_tool_details":  {
+                                                "get":  {
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.id"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.partner_id"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.proposal_id"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_name"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.risk_classification"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.intended_use"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.privacy_impact_assessment"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.compliance_assessment"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.responsible_officer"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.oversight_mechanism"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.created_at"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.updated_at"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_url"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.description"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_concept_note_url"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_objective"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.target_users"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.estimated_users"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.use_case"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.budget"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.tech_requirements"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.partner_tool_details.training_required"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/select"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/order"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/range"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rangeUnit"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/offset"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/limit"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/preferCount"
+                                                                               }
+                                                                           ],
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "description":  "OK",
+                                                                                          "schema":  {
+                                                                                                         "items":  {
+                                                                                                                       "$ref":  "#/definitions/partner_tool_details"
+                                                                                                                   },
+                                                                                                         "type":  "array"
+                                                                                                     }
+                                                                                      },
+                                                                              "206":  {
+                                                                                          "description":  "Partial Content"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "partner_tool_details"
+                                                                     ]
+                                                        },
+                                                "post":  {
+                                                             "parameters":  [
+                                                                                {
+                                                                                    "$ref":  "#/parameters/body.partner_tool_details"
+                                                                                },
+                                                                                {
+                                                                                    "$ref":  "#/parameters/select"
+                                                                                },
+                                                                                {
+                                                                                    "$ref":  "#/parameters/preferPost"
+                                                                                }
+                                                                            ],
+                                                             "responses":  {
+                                                                               "201":  {
+                                                                                           "description":  "Created"
+                                                                                       }
+                                                                           },
+                                                             "tags":  [
+                                                                          "partner_tool_details"
+                                                                      ]
+                                                         },
+                                                "delete":  {
+                                                               "parameters":  [
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.id"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.partner_id"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.proposal_id"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_name"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.risk_classification"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.intended_use"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.privacy_impact_assessment"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.compliance_assessment"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.responsible_officer"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.oversight_mechanism"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.created_at"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.updated_at"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_url"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.description"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_concept_note_url"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_objective"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.target_users"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.estimated_users"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.use_case"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.budget"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.tech_requirements"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/rowFilter.partner_tool_details.training_required"
+                                                                                  },
+                                                                                  {
+                                                                                      "$ref":  "#/parameters/preferReturn"
+                                                                                  }
+                                                                              ],
+                                                               "responses":  {
+                                                                                 "204":  {
+                                                                                             "description":  "No Content"
+                                                                                         }
+                                                                             },
+                                                               "tags":  [
+                                                                            "partner_tool_details"
+                                                                        ]
+                                                           },
+                                                "patch":  {
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.id"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.partner_id"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.proposal_id"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_name"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.risk_classification"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.intended_use"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.privacy_impact_assessment"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.compliance_assessment"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.responsible_officer"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.oversight_mechanism"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.created_at"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.updated_at"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_url"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.description"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_concept_note_url"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.tool_objective"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.target_users"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.estimated_users"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.use_case"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.budget"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.tech_requirements"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/rowFilter.partner_tool_details.training_required"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/body.partner_tool_details"
+                                                                                 },
+                                                                                 {
+                                                                                     "$ref":  "#/parameters/preferReturn"
+                                                                                 }
+                                                                             ],
+                                                              "responses":  {
+                                                                                "204":  {
+                                                                                            "description":  "No Content"
+                                                                                        }
+                                                                            },
+                                                              "tags":  [
+                                                                           "partner_tool_details"
+                                                                       ]
+                                                          }
+                                            },
+                  "/profiles":  {
+                                    "get":  {
+                                                "parameters":  [
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.id"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.created_at"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.updated_at"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.display_name"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.full_name"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.office"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.position"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rowFilter.profiles.avatar_url"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/select"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/order"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/range"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/rangeUnit"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/offset"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/limit"
+                                                                   },
+                                                                   {
+                                                                       "$ref":  "#/parameters/preferCount"
+                                                                   }
+                                                               ],
+                                                "responses":  {
+                                                                  "200":  {
+                                                                              "description":  "OK",
+                                                                              "schema":  {
+                                                                                             "items":  {
+                                                                                                           "$ref":  "#/definitions/profiles"
+                                                                                                       },
+                                                                                             "type":  "array"
+                                                                                         }
+                                                                          },
+                                                                  "206":  {
+                                                                              "description":  "Partial Content"
+                                                                          }
+                                                              },
+                                                "tags":  [
+                                                             "profiles"
+                                                         ]
+                                            },
+                                    "post":  {
+                                                 "parameters":  [
+                                                                    {
+                                                                        "$ref":  "#/parameters/body.profiles"
+                                                                    },
+                                                                    {
+                                                                        "$ref":  "#/parameters/select"
+                                                                    },
+                                                                    {
+                                                                        "$ref":  "#/parameters/preferPost"
+                                                                    }
+                                                                ],
+                                                 "responses":  {
+                                                                   "201":  {
+                                                                               "description":  "Created"
+                                                                           }
+                                                               },
+                                                 "tags":  [
+                                                              "profiles"
+                                                          ]
+                                             },
+                                    "delete":  {
+                                                   "parameters":  [
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.id"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.created_at"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.updated_at"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.display_name"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.full_name"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.office"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.position"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/rowFilter.profiles.avatar_url"
+                                                                      },
+                                                                      {
+                                                                          "$ref":  "#/parameters/preferReturn"
+                                                                      }
+                                                                  ],
+                                                   "responses":  {
+                                                                     "204":  {
+                                                                                 "description":  "No Content"
+                                                                             }
+                                                                 },
+                                                   "tags":  [
+                                                                "profiles"
+                                                            ]
+                                               },
+                                    "patch":  {
+                                                  "parameters":  [
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.id"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.created_at"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.updated_at"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.display_name"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.full_name"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.office"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.position"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/rowFilter.profiles.avatar_url"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/body.profiles"
+                                                                     },
+                                                                     {
+                                                                         "$ref":  "#/parameters/preferReturn"
+                                                                     }
+                                                                 ],
+                                                  "responses":  {
+                                                                    "204":  {
+                                                                                "description":  "No Content"
+                                                                            }
+                                                                },
+                                                  "tags":  [
+                                                               "profiles"
+                                                           ]
+                                              }
+                                },
+                  "/proposed_partners":  {
+                                             "get":  {
+                                                         "parameters":  [
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.id"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.name"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.email"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.theme_config"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.logo_svg"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.proposed_by"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.created_at"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.updated_at"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.concept_note_url"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.background"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.contact_person"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.contact_position"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.contact_number"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.contact_email"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.contact_mode"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.contract_note"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.description"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rowFilter.proposed_partners.status"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/select"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/order"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/range"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/rangeUnit"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/offset"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/limit"
+                                                                            },
+                                                                            {
+                                                                                "$ref":  "#/parameters/preferCount"
+                                                                            }
+                                                                        ],
+                                                         "responses":  {
+                                                                           "200":  {
+                                                                                       "description":  "OK",
+                                                                                       "schema":  {
+                                                                                                      "items":  {
+                                                                                                                    "$ref":  "#/definitions/proposed_partners"
+                                                                                                                },
+                                                                                                      "type":  "array"
+                                                                                                  }
+                                                                                   },
+                                                                           "206":  {
+                                                                                       "description":  "Partial Content"
+                                                                                   }
+                                                                       },
+                                                         "tags":  [
+                                                                      "proposed_partners"
+                                                                  ]
+                                                     },
+                                             "post":  {
+                                                          "parameters":  [
+                                                                             {
+                                                                                 "$ref":  "#/parameters/body.proposed_partners"
+                                                                             },
+                                                                             {
+                                                                                 "$ref":  "#/parameters/select"
+                                                                             },
+                                                                             {
+                                                                                 "$ref":  "#/parameters/preferPost"
+                                                                             }
+                                                                         ],
+                                                          "responses":  {
+                                                                            "201":  {
+                                                                                        "description":  "Created"
+                                                                                    }
+                                                                        },
+                                                          "tags":  [
+                                                                       "proposed_partners"
+                                                                   ]
+                                                      },
+                                             "delete":  {
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.id"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.name"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.email"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.theme_config"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.logo_svg"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.proposed_by"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.created_at"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.updated_at"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.concept_note_url"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.background"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.contact_person"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.contact_position"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.contact_number"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.contact_email"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.contact_mode"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.contract_note"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.description"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/rowFilter.proposed_partners.status"
+                                                                               },
+                                                                               {
+                                                                                   "$ref":  "#/parameters/preferReturn"
+                                                                               }
+                                                                           ],
+                                                            "responses":  {
+                                                                              "204":  {
+                                                                                          "description":  "No Content"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "proposed_partners"
+                                                                     ]
+                                                        },
+                                             "patch":  {
+                                                           "parameters":  [
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.id"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.name"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.email"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.theme_config"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.logo_svg"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.proposed_by"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.created_at"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.updated_at"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.concept_note_url"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.background"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.contact_person"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.contact_position"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.contact_number"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.contact_email"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.contact_mode"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.contract_note"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.description"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/rowFilter.proposed_partners.status"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/body.proposed_partners"
+                                                                              },
+                                                                              {
+                                                                                  "$ref":  "#/parameters/preferReturn"
+                                                                              }
+                                                                          ],
+                                                           "responses":  {
+                                                                             "204":  {
+                                                                                         "description":  "No Content"
+                                                                                     }
+                                                                         },
+                                                           "tags":  [
+                                                                        "proposed_partners"
+                                                                    ]
+                                                       }
+                                         }
+              },
+    "definitions":  {
+                        "partners":  {
+                                         "required":  [
+                                                          "id",
+                                                          "name",
+                                                          "email",
+                                                          "created_at",
+                                                          "updated_at"
+                                                      ],
+                                         "properties":  {
+                                                            "id":  {
+                                                                       "default":  "gen_random_uuid()",
+                                                                       "description":  "Note:\nThis is a Primary Key.\u003cpk/\u003e",
+                                                                       "format":  "uuid",
+                                                                       "type":  "string"
+                                                                   },
+                                                            "name":  {
+                                                                         "format":  "text",
+                                                                         "type":  "string"
+                                                                     },
+                                                            "email":  {
+                                                                          "format":  "text",
+                                                                          "type":  "string"
+                                                                      },
+                                                            "tools":  {
+                                                                          "default":  "",
+                                                                          "format":  "text",
+                                                                          "type":  "string"
+                                                                      },
+                                                            "theme_config":  {
+                                                                                 "format":  "jsonb"
+                                                                             },
+                                                            "created_at":  {
+                                                                               "default":  "now()",
+                                                                               "format":  "timestamp with time zone",
+                                                                               "type":  "string"
+                                                                           },
+                                                            "updated_at":  {
+                                                                               "default":  "now()",
+                                                                               "format":  "timestamp with time zone",
+                                                                               "type":  "string"
+                                                                           },
+                                                            "proposed_by":  {
+                                                                                "default":  "gen_random_uuid()",
+                                                                                "format":  "uuid",
+                                                                                "type":  "string"
+                                                                            }
+                                                        },
+                                         "type":  "object"
+                                     },
+                        "partner_tool_details":  {
+                                                     "required":  [
+                                                                      "id",
+                                                                      "tool_name",
+                                                                      "risk_classification",
+                                                                      "created_at",
+                                                                      "updated_at"
+                                                                  ],
+                                                     "properties":  {
+                                                                        "id":  {
+                                                                                   "default":  "gen_random_uuid()",
+                                                                                   "description":  "Note:\nThis is a Primary Key.\u003cpk/\u003e",
+                                                                                   "format":  "uuid",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                        "partner_id":  {
+                                                                                           "description":  "Note:\nThis is a Foreign Key to `partners.id`.\u003cfk table=\u0027partners\u0027 column=\u0027id\u0027/\u003e",
+                                                                                           "format":  "uuid",
+                                                                                           "type":  "string"
+                                                                                       },
+                                                                        "proposal_id":  {
+                                                                                            "description":  "Note:\nThis is a Foreign Key to `proposed_partners.id`.\u003cfk table=\u0027proposed_partners\u0027 column=\u0027id\u0027/\u003e",
+                                                                                            "format":  "uuid",
+                                                                                            "type":  "string"
+                                                                                        },
+                                                                        "tool_name":  {
+                                                                                          "format":  "text",
+                                                                                          "type":  "string"
+                                                                                      },
+                                                                        "risk_classification":  {
+                                                                                                    "default":  "Minimal",
+                                                                                                    "format":  "text",
+                                                                                                    "type":  "string"
+                                                                                                },
+                                                                        "intended_use":  {
+                                                                                             "default":  "",
+                                                                                             "format":  "text",
+                                                                                             "type":  "string"
+                                                                                         },
+                                                                        "privacy_impact_assessment":  {
+                                                                                                          "default":  "",
+                                                                                                          "format":  "text",
+                                                                                                          "type":  "string"
+                                                                                                      },
+                                                                        "compliance_assessment":  {
+                                                                                                      "default":  "",
+                                                                                                      "format":  "text",
+                                                                                                      "type":  "string"
+                                                                                                  },
+                                                                        "responsible_officer":  {
+                                                                                                    "default":  "",
+                                                                                                    "format":  "text",
+                                                                                                    "type":  "string"
+                                                                                                },
+                                                                        "oversight_mechanism":  {
+                                                                                                    "default":  "",
+                                                                                                    "format":  "text",
+                                                                                                    "type":  "string"
+                                                                                                },
+                                                                        "created_at":  {
+                                                                                           "default":  "now()",
+                                                                                           "format":  "timestamp with time zone",
+                                                                                           "type":  "string"
+                                                                                       },
+                                                                        "updated_at":  {
+                                                                                           "default":  "now()",
+                                                                                           "format":  "timestamp with time zone",
+                                                                                           "type":  "string"
+                                                                                       },
+                                                                        "tool_url":  {
+                                                                                         "default":  "",
+                                                                                         "format":  "text",
+                                                                                         "type":  "string"
+                                                                                     },
+                                                                        "description":  {
+                                                                                            "default":  "",
+                                                                                            "format":  "text",
+                                                                                            "type":  "string"
+                                                                                        },
+                                                                        "tool_concept_note_url":  {
+                                                                                                      "default":  "",
+                                                                                                      "format":  "text",
+                                                                                                      "type":  "string"
+                                                                                                  },
+                                                                        "tool_objective":  {
+                                                                                               "default":  "",
+                                                                                               "format":  "text",
+                                                                                               "type":  "string"
+                                                                                           },
+                                                                        "target_users":  {
+                                                                                             "default":  "",
+                                                                                             "format":  "text",
+                                                                                             "type":  "string"
+                                                                                         },
+                                                                        "estimated_users":  {
+                                                                                                "default":  "",
+                                                                                                "format":  "text",
+                                                                                                "type":  "string"
+                                                                                            },
+                                                                        "use_case":  {
+                                                                                         "default":  "",
+                                                                                         "format":  "text",
+                                                                                         "type":  "string"
+                                                                                     },
+                                                                        "budget":  {
+                                                                                       "default":  "",
+                                                                                       "format":  "text",
+                                                                                       "type":  "string"
+                                                                                   },
+                                                                        "tech_requirements":  {
+                                                                                                  "default":  "",
+                                                                                                  "format":  "text",
+                                                                                                  "type":  "string"
+                                                                                              },
+                                                                        "training_required":  {
+                                                                                                  "default":  "none",
+                                                                                                  "format":  "text",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                    },
+                                                     "type":  "object"
+                                                 },
+                        "profiles":  {
+                                         "required":  [
+                                                          "id",
+                                                          "created_at"
+                                                      ],
+                                         "properties":  {
+                                                            "id":  {
+                                                                       "description":  "Note:\nThis is a Primary Key.\u003cpk/\u003e",
+                                                                       "format":  "uuid",
+                                                                       "type":  "string"
+                                                                   },
+                                                            "created_at":  {
+                                                                               "default":  "timezone(\u0027utc\u0027::text, now())",
+                                                                               "format":  "timestamp with time zone",
+                                                                               "type":  "string"
+                                                                           },
+                                                            "updated_at":  {
+                                                                               "default":  "timezone(\u0027utc\u0027::text, now())",
+                                                                               "format":  "timestamp with time zone",
+                                                                               "type":  "string"
+                                                                           },
+                                                            "display_name":  {
+                                                                                 "format":  "text",
+                                                                                 "type":  "string"
+                                                                             },
+                                                            "full_name":  {
+                                                                              "format":  "text",
+                                                                              "type":  "string"
+                                                                          },
+                                                            "office":  {
+                                                                           "default":  "",
+                                                                           "format":  "text",
+                                                                           "type":  "string"
+                                                                       },
+                                                            "position":  {
+                                                                             "default":  "",
+                                                                             "format":  "text",
+                                                                             "type":  "string"
+                                                                         },
+                                                            "avatar_url":  {
+                                                                               "default":  "",
+                                                                               "format":  "text",
+                                                                               "type":  "string"
+                                                                           }
+                                                        },
+                                         "type":  "object"
+                                     },
+                        "proposed_partners":  {
+                                                  "required":  [
+                                                                   "id",
+                                                                   "name",
+                                                                   "email",
+                                                                   "created_at",
+                                                                   "updated_at"
+                                                               ],
+                                                  "properties":  {
+                                                                     "id":  {
+                                                                                "default":  "gen_random_uuid()",
+                                                                                "description":  "Note:\nThis is a Primary Key.\u003cpk/\u003e",
+                                                                                "format":  "uuid",
+                                                                                "type":  "string"
+                                                                            },
+                                                                     "name":  {
+                                                                                  "format":  "text",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                     "email":  {
+                                                                                   "format":  "text",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                     "theme_config":  {
+                                                                                          "format":  "jsonb"
+                                                                                      },
+                                                                     "logo_svg":  {
+                                                                                      "default":  "",
+                                                                                      "format":  "text",
+                                                                                      "type":  "string"
+                                                                                  },
+                                                                     "proposed_by":  {
+                                                                                         "format":  "uuid",
+                                                                                         "type":  "string"
+                                                                                     },
+                                                                     "created_at":  {
+                                                                                        "default":  "now()",
+                                                                                        "format":  "timestamp with time zone",
+                                                                                        "type":  "string"
+                                                                                    },
+                                                                     "updated_at":  {
+                                                                                        "default":  "now()",
+                                                                                        "format":  "timestamp with time zone",
+                                                                                        "type":  "string"
+                                                                                    },
+                                                                     "concept_note_url":  {
+                                                                                              "default":  "",
+                                                                                              "format":  "text",
+                                                                                              "type":  "string"
+                                                                                          },
+                                                                     "background":  {
+                                                                                        "default":  "",
+                                                                                        "format":  "text",
+                                                                                        "type":  "string"
+                                                                                    },
+                                                                     "contact_person":  {
+                                                                                            "default":  "",
+                                                                                            "format":  "text",
+                                                                                            "type":  "string"
+                                                                                        },
+                                                                     "contact_position":  {
+                                                                                              "default":  "",
+                                                                                              "format":  "text",
+                                                                                              "type":  "string"
+                                                                                          },
+                                                                     "contact_number":  {
+                                                                                            "default":  "",
+                                                                                            "format":  "text",
+                                                                                            "type":  "string"
+                                                                                        },
+                                                                     "contact_email":  {
+                                                                                           "default":  "",
+                                                                                           "format":  "text",
+                                                                                           "type":  "string"
+                                                                                       },
+                                                                     "contact_mode":  {
+                                                                                          "default":  "",
+                                                                                          "format":  "text",
+                                                                                          "type":  "string"
+                                                                                      },
+                                                                     "contract_note":  {
+                                                                                           "default":  "",
+                                                                                           "format":  "text",
+                                                                                           "type":  "string"
+                                                                                       },
+                                                                     "description":  {
+                                                                                         "format":  "text",
+                                                                                         "type":  "string"
+                                                                                     },
+                                                                     "status":  {
+                                                                                    "format":  "text",
+                                                                                    "type":  "string"
+                                                                                }
+                                                                 },
+                                                  "type":  "object"
+                                              }
+                    },
+    "parameters":  {
+                       "preferParams":  {
+                                            "name":  "Prefer",
+                                            "description":  "Preference",
+                                            "required":  false,
+                                            "in":  "header",
+                                            "type":  "string"
+                                        },
+                       "preferReturn":  {
+                                            "name":  "Prefer",
+                                            "description":  "Preference",
+                                            "required":  false,
+                                            "enum":  [
+                                                         "return=representation",
+                                                         "return=minimal",
+                                                         "return=none"
+                                                     ],
+                                            "in":  "header",
+                                            "type":  "string"
+                                        },
+                       "preferCount":  {
+                                           "name":  "Prefer",
+                                           "description":  "Preference",
+                                           "required":  false,
+                                           "enum":  [
+                                                        "count=none"
+                                                    ],
+                                           "in":  "header",
+                                           "type":  "string"
+                                       },
+                       "preferPost":  {
+                                          "name":  "Prefer",
+                                          "description":  "Preference",
+                                          "required":  false,
+                                          "enum":  [
+                                                       "return=representation",
+                                                       "return=minimal",
+                                                       "return=none",
+                                                       "resolution=ignore-duplicates",
+                                                       "resolution=merge-duplicates"
+                                                   ],
+                                          "in":  "header",
+                                          "type":  "string"
+                                      },
+                       "select":  {
+                                      "name":  "select",
+                                      "description":  "Filtering Columns",
+                                      "required":  false,
+                                      "in":  "query",
+                                      "type":  "string"
+                                  },
+                       "on_conflict":  {
+                                           "name":  "on_conflict",
+                                           "description":  "On Conflict",
+                                           "required":  false,
+                                           "in":  "query",
+                                           "type":  "string"
+                                       },
+                       "order":  {
+                                     "name":  "order",
+                                     "description":  "Ordering",
+                                     "required":  false,
+                                     "in":  "query",
+                                     "type":  "string"
+                                 },
+                       "range":  {
+                                     "name":  "Range",
+                                     "description":  "Limiting and Pagination",
+                                     "required":  false,
+                                     "in":  "header",
+                                     "type":  "string"
+                                 },
+                       "rangeUnit":  {
+                                         "name":  "Range-Unit",
+                                         "description":  "Limiting and Pagination",
+                                         "required":  false,
+                                         "default":  "items",
+                                         "in":  "header",
+                                         "type":  "string"
+                                     },
+                       "offset":  {
+                                      "name":  "offset",
+                                      "description":  "Limiting and Pagination",
+                                      "required":  false,
+                                      "in":  "query",
+                                      "type":  "string"
+                                  },
+                       "limit":  {
+                                     "name":  "limit",
+                                     "description":  "Limiting and Pagination",
+                                     "required":  false,
+                                     "in":  "query",
+                                     "type":  "string"
+                                 },
+                       "body.partners":  {
+                                             "name":  "partners",
+                                             "description":  "partners",
+                                             "required":  false,
+                                             "in":  "body",
+                                             "schema":  {
+                                                            "$ref":  "#/definitions/partners"
+                                                        }
+                                         },
+                       "rowFilter.partners.id":  {
+                                                     "name":  "id",
+                                                     "required":  false,
+                                                     "in":  "query",
+                                                     "type":  "string"
+                                                 },
+                       "rowFilter.partners.name":  {
+                                                       "name":  "name",
+                                                       "required":  false,
+                                                       "in":  "query",
+                                                       "type":  "string"
+                                                   },
+                       "rowFilter.partners.email":  {
+                                                        "name":  "email",
+                                                        "required":  false,
+                                                        "in":  "query",
+                                                        "type":  "string"
+                                                    },
+                       "rowFilter.partners.tools":  {
+                                                        "name":  "tools",
+                                                        "required":  false,
+                                                        "in":  "query",
+                                                        "type":  "string"
+                                                    },
+                       "rowFilter.partners.theme_config":  {
+                                                               "name":  "theme_config",
+                                                               "required":  false,
+                                                               "in":  "query",
+                                                               "type":  "string"
+                                                           },
+                       "rowFilter.partners.created_at":  {
+                                                             "name":  "created_at",
+                                                             "required":  false,
+                                                             "in":  "query",
+                                                             "type":  "string"
+                                                         },
+                       "rowFilter.partners.updated_at":  {
+                                                             "name":  "updated_at",
+                                                             "required":  false,
+                                                             "in":  "query",
+                                                             "type":  "string"
+                                                         },
+                       "rowFilter.partners.proposed_by":  {
+                                                              "name":  "proposed_by",
+                                                              "required":  false,
+                                                              "in":  "query",
+                                                              "type":  "string"
+                                                          },
+                       "body.partner_tool_details":  {
+                                                         "name":  "partner_tool_details",
+                                                         "description":  "partner_tool_details",
+                                                         "required":  false,
+                                                         "in":  "body",
+                                                         "schema":  {
+                                                                        "$ref":  "#/definitions/partner_tool_details"
+                                                                    }
+                                                     },
+                       "rowFilter.partner_tool_details.id":  {
+                                                                 "name":  "id",
+                                                                 "required":  false,
+                                                                 "in":  "query",
+                                                                 "type":  "string"
+                                                             },
+                       "rowFilter.partner_tool_details.partner_id":  {
+                                                                         "name":  "partner_id",
+                                                                         "required":  false,
+                                                                         "in":  "query",
+                                                                         "type":  "string"
+                                                                     },
+                       "rowFilter.partner_tool_details.proposal_id":  {
+                                                                          "name":  "proposal_id",
+                                                                          "required":  false,
+                                                                          "in":  "query",
+                                                                          "type":  "string"
+                                                                      },
+                       "rowFilter.partner_tool_details.tool_name":  {
+                                                                        "name":  "tool_name",
+                                                                        "required":  false,
+                                                                        "in":  "query",
+                                                                        "type":  "string"
+                                                                    },
+                       "rowFilter.partner_tool_details.risk_classification":  {
+                                                                                  "name":  "risk_classification",
+                                                                                  "required":  false,
+                                                                                  "in":  "query",
+                                                                                  "type":  "string"
+                                                                              },
+                       "rowFilter.partner_tool_details.intended_use":  {
+                                                                           "name":  "intended_use",
+                                                                           "required":  false,
+                                                                           "in":  "query",
+                                                                           "type":  "string"
+                                                                       },
+                       "rowFilter.partner_tool_details.privacy_impact_assessment":  {
+                                                                                        "name":  "privacy_impact_assessment",
+                                                                                        "required":  false,
+                                                                                        "in":  "query",
+                                                                                        "type":  "string"
+                                                                                    },
+                       "rowFilter.partner_tool_details.compliance_assessment":  {
+                                                                                    "name":  "compliance_assessment",
+                                                                                    "required":  false,
+                                                                                    "in":  "query",
+                                                                                    "type":  "string"
+                                                                                },
+                       "rowFilter.partner_tool_details.responsible_officer":  {
+                                                                                  "name":  "responsible_officer",
+                                                                                  "required":  false,
+                                                                                  "in":  "query",
+                                                                                  "type":  "string"
+                                                                              },
+                       "rowFilter.partner_tool_details.oversight_mechanism":  {
+                                                                                  "name":  "oversight_mechanism",
+                                                                                  "required":  false,
+                                                                                  "in":  "query",
+                                                                                  "type":  "string"
+                                                                              },
+                       "rowFilter.partner_tool_details.created_at":  {
+                                                                         "name":  "created_at",
+                                                                         "required":  false,
+                                                                         "in":  "query",
+                                                                         "type":  "string"
+                                                                     },
+                       "rowFilter.partner_tool_details.updated_at":  {
+                                                                         "name":  "updated_at",
+                                                                         "required":  false,
+                                                                         "in":  "query",
+                                                                         "type":  "string"
+                                                                     },
+                       "rowFilter.partner_tool_details.tool_url":  {
+                                                                       "name":  "tool_url",
+                                                                       "required":  false,
+                                                                       "in":  "query",
+                                                                       "type":  "string"
+                                                                   },
+                       "rowFilter.partner_tool_details.description":  {
+                                                                          "name":  "description",
+                                                                          "required":  false,
+                                                                          "in":  "query",
+                                                                          "type":  "string"
+                                                                      },
+                       "rowFilter.partner_tool_details.tool_concept_note_url":  {
+                                                                                    "name":  "tool_concept_note_url",
+                                                                                    "required":  false,
+                                                                                    "in":  "query",
+                                                                                    "type":  "string"
+                                                                                },
+                       "rowFilter.partner_tool_details.tool_objective":  {
+                                                                             "name":  "tool_objective",
+                                                                             "required":  false,
+                                                                             "in":  "query",
+                                                                             "type":  "string"
+                                                                         },
+                       "rowFilter.partner_tool_details.target_users":  {
+                                                                           "name":  "target_users",
+                                                                           "required":  false,
+                                                                           "in":  "query",
+                                                                           "type":  "string"
+                                                                       },
+                       "rowFilter.partner_tool_details.estimated_users":  {
+                                                                              "name":  "estimated_users",
+                                                                              "required":  false,
+                                                                              "in":  "query",
+                                                                              "type":  "string"
+                                                                          },
+                       "rowFilter.partner_tool_details.use_case":  {
+                                                                       "name":  "use_case",
+                                                                       "required":  false,
+                                                                       "in":  "query",
+                                                                       "type":  "string"
+                                                                   },
+                       "rowFilter.partner_tool_details.budget":  {
+                                                                     "name":  "budget",
+                                                                     "required":  false,
+                                                                     "in":  "query",
+                                                                     "type":  "string"
+                                                                 },
+                       "rowFilter.partner_tool_details.tech_requirements":  {
+                                                                                "name":  "tech_requirements",
+                                                                                "required":  false,
+                                                                                "in":  "query",
+                                                                                "type":  "string"
+                                                                            },
+                       "rowFilter.partner_tool_details.training_required":  {
+                                                                                "name":  "training_required",
+                                                                                "required":  false,
+                                                                                "in":  "query",
+                                                                                "type":  "string"
+                                                                            },
+                       "body.profiles":  {
+                                             "name":  "profiles",
+                                             "description":  "profiles",
+                                             "required":  false,
+                                             "in":  "body",
+                                             "schema":  {
+                                                            "$ref":  "#/definitions/profiles"
+                                                        }
+                                         },
+                       "rowFilter.profiles.id":  {
+                                                     "name":  "id",
+                                                     "required":  false,
+                                                     "in":  "query",
+                                                     "type":  "string"
+                                                 },
+                       "rowFilter.profiles.created_at":  {
+                                                             "name":  "created_at",
+                                                             "required":  false,
+                                                             "in":  "query",
+                                                             "type":  "string"
+                                                         },
+                       "rowFilter.profiles.updated_at":  {
+                                                             "name":  "updated_at",
+                                                             "required":  false,
+                                                             "in":  "query",
+                                                             "type":  "string"
+                                                         },
+                       "rowFilter.profiles.display_name":  {
+                                                               "name":  "display_name",
+                                                               "required":  false,
+                                                               "in":  "query",
+                                                               "type":  "string"
+                                                           },
+                       "rowFilter.profiles.full_name":  {
+                                                            "name":  "full_name",
+                                                            "required":  false,
+                                                            "in":  "query",
+                                                            "type":  "string"
+                                                        },
+                       "rowFilter.profiles.office":  {
+                                                         "name":  "office",
+                                                         "required":  false,
+                                                         "in":  "query",
+                                                         "type":  "string"
+                                                     },
+                       "rowFilter.profiles.position":  {
+                                                           "name":  "position",
+                                                           "required":  false,
+                                                           "in":  "query",
+                                                           "type":  "string"
+                                                       },
+                       "rowFilter.profiles.avatar_url":  {
+                                                             "name":  "avatar_url",
+                                                             "required":  false,
+                                                             "in":  "query",
+                                                             "type":  "string"
+                                                         },
+                       "body.proposed_partners":  {
+                                                      "name":  "proposed_partners",
+                                                      "description":  "proposed_partners",
+                                                      "required":  false,
+                                                      "in":  "body",
+                                                      "schema":  {
+                                                                     "$ref":  "#/definitions/proposed_partners"
+                                                                 }
+                                                  },
+                       "rowFilter.proposed_partners.id":  {
+                                                              "name":  "id",
+                                                              "required":  false,
+                                                              "in":  "query",
+                                                              "type":  "string"
+                                                          },
+                       "rowFilter.proposed_partners.name":  {
+                                                                "name":  "name",
+                                                                "required":  false,
+                                                                "in":  "query",
+                                                                "type":  "string"
+                                                            },
+                       "rowFilter.proposed_partners.email":  {
+                                                                 "name":  "email",
+                                                                 "required":  false,
+                                                                 "in":  "query",
+                                                                 "type":  "string"
+                                                             },
+                       "rowFilter.proposed_partners.theme_config":  {
+                                                                        "name":  "theme_config",
+                                                                        "required":  false,
+                                                                        "in":  "query",
+                                                                        "type":  "string"
+                                                                    },
+                       "rowFilter.proposed_partners.logo_svg":  {
+                                                                    "name":  "logo_svg",
+                                                                    "required":  false,
+                                                                    "in":  "query",
+                                                                    "type":  "string"
+                                                                },
+                       "rowFilter.proposed_partners.proposed_by":  {
+                                                                       "name":  "proposed_by",
+                                                                       "required":  false,
+                                                                       "in":  "query",
+                                                                       "type":  "string"
+                                                                   },
+                       "rowFilter.proposed_partners.created_at":  {
+                                                                      "name":  "created_at",
+                                                                      "required":  false,
+                                                                      "in":  "query",
+                                                                      "type":  "string"
+                                                                  },
+                       "rowFilter.proposed_partners.updated_at":  {
+                                                                      "name":  "updated_at",
+                                                                      "required":  false,
+                                                                      "in":  "query",
+                                                                      "type":  "string"
+                                                                  },
+                       "rowFilter.proposed_partners.concept_note_url":  {
+                                                                            "name":  "concept_note_url",
+                                                                            "required":  false,
+                                                                            "in":  "query",
+                                                                            "type":  "string"
+                                                                        },
+                       "rowFilter.proposed_partners.background":  {
+                                                                      "name":  "background",
+                                                                      "required":  false,
+                                                                      "in":  "query",
+                                                                      "type":  "string"
+                                                                  },
+                       "rowFilter.proposed_partners.contact_person":  {
+                                                                          "name":  "contact_person",
+                                                                          "required":  false,
+                                                                          "in":  "query",
+                                                                          "type":  "string"
+                                                                      },
+                       "rowFilter.proposed_partners.contact_position":  {
+                                                                            "name":  "contact_position",
+                                                                            "required":  false,
+                                                                            "in":  "query",
+                                                                            "type":  "string"
+                                                                        },
+                       "rowFilter.proposed_partners.contact_number":  {
+                                                                          "name":  "contact_number",
+                                                                          "required":  false,
+                                                                          "in":  "query",
+                                                                          "type":  "string"
+                                                                      },
+                       "rowFilter.proposed_partners.contact_email":  {
+                                                                         "name":  "contact_email",
+                                                                         "required":  false,
+                                                                         "in":  "query",
+                                                                         "type":  "string"
+                                                                     },
+                       "rowFilter.proposed_partners.contact_mode":  {
+                                                                        "name":  "contact_mode",
+                                                                        "required":  false,
+                                                                        "in":  "query",
+                                                                        "type":  "string"
+                                                                    },
+                       "rowFilter.proposed_partners.contract_note":  {
+                                                                         "name":  "contract_note",
+                                                                         "required":  false,
+                                                                         "in":  "query",
+                                                                         "type":  "string"
+                                                                     },
+                       "rowFilter.proposed_partners.description":  {
+                                                                       "name":  "description",
+                                                                       "required":  false,
+                                                                       "in":  "query",
+                                                                       "type":  "string"
+                                                                   },
+                       "rowFilter.proposed_partners.status":  {
+                                                                  "name":  "status",
+                                                                  "required":  false,
+                                                                  "in":  "query",
+                                                                  "type":  "string"
+                                                              }
+                   },
+    "externalDocs":  {
+                         "description":  "PostgREST Documentation",
+                         "url":  "https://postgrest.org/en/v14/references/api.html"
+                     }
+}

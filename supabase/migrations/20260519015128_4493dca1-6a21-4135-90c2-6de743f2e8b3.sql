@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.assign_partner_role(uuid) FROM PUBLIC, anon;

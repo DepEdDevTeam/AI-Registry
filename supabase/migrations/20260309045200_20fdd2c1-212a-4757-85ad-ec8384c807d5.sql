@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_tool_details ADD COLUMN tool_url text DEFAULT '';

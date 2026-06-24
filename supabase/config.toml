@@ -1,0 +1,9 @@
+project_id = "pssdivbfpxipqpharqlo"
+
+[functions]
+  [functions.auth-email-hook]
+    verify_jwt = false
+  [functions.delete-user]
+    verify_jwt = true
+  [functions.process-email-queue]
+    verify_jwt = true
