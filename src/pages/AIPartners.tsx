@@ -70,14 +70,30 @@ const AIPartners = () => {
     if (!pendingDelete) return;
     const before = { name: pendingDelete.name };
 
-    await supabase.from("partner_tool_details").delete().eq("partner_id", pendingDelete.id);
+    const { data: deleted, error: delErr } = await supabase.rpc("delete_partner_as_super_admin", {
+      _partner_id: pendingDelete.id,
+    });
 
-    const { error: delErr } = await supabase.from("partners").delete().eq("id", pendingDelete.id);
     if (delErr) {
       toast({ title: "Failed to delete provider", description: delErr.message, variant: "destructive" });
       return;
     }
+
+    if (!deleted) {
+      toast({
+        title: "Delete not completed",
+        description: "The provider record still exists. Please refresh and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     await logAudit("delete", "partners", pendingDelete.id, before, null);
+    qc.setQueryData<PartnerData[]>(["all-partners"], (current) =>
+      current?.filter((partner) => partner.id !== pendingDelete.id) ?? current,
+    );
+    qc.invalidateQueries({ queryKey: ["partner-profile"] });
+    qc.invalidateQueries({ queryKey: ["all-ai-tools"] });
     toast({ title: "Provider deleted", description: `${pendingDelete.name} was removed.` });
     qc.invalidateQueries({ queryKey: ["all-partners"] });
   };

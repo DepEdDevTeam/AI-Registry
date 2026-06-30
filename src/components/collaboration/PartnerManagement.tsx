@@ -146,10 +146,19 @@ const PartnerManagement = () => {
   const handleDelete = async () => {
     if (!pendingDelete) return;
     const before = { name: pendingDelete.name };
-    await supabase.from("partner_tool_details").delete().eq("partner_id", pendingDelete.id);
-    const { error } = await supabase.from("partners").delete().eq("id", pendingDelete.id);
+    const { data: deleted, error } = await supabase.rpc("delete_partner_as_super_admin", {
+      _partner_id: pendingDelete.id,
+    });
     if (error) {
       toast({ title: "Failed to delete", description: error.message, variant: "destructive" });
+      return;
+    }
+    if (!deleted) {
+      toast({
+        title: "Delete not completed",
+        description: "The partner record still exists. Please refresh and try again.",
+        variant: "destructive",
+      });
       return;
     }
     await logAudit("delete", "partners", pendingDelete.id, before, null);

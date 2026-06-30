@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client"; // 1. Swapped MongoDB for Supabase
 import { RiskBadge, StatusBadge } from "@/components/Badges";
@@ -85,6 +85,7 @@ const PartnersPage = () => {
   const toolLogoInputRef = React.useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const qc = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: currentUserId } = useQuery({
     queryKey: ["current-user-id"],
@@ -97,7 +98,7 @@ const PartnersPage = () => {
   const isProposalKey = partnerKey?.startsWith("proposal-");
   const proposalId = isProposalKey ? partnerKey!.replace("proposal-", "") : null;
 
-  const { data: partnerInfo, isLoading } = useQuery({
+  const { data: partnerInfo, isLoading, isError } = useQuery({
     queryKey: ["partner-profile", partnerKey],
     queryFn: async (): Promise<PartnerInfo> => {
       // Unified `partners` table — `proposal-<id>` keys look up by id for backward compat.
@@ -124,6 +125,7 @@ const PartnersPage = () => {
       };
     },
     enabled: !!partnerKey,
+    retry: false,
   });
 
   const { data: dbToolDetails, refetch: refetchTools } = useQuery({
@@ -150,10 +152,48 @@ const PartnersPage = () => {
     }
   }, [location.hash]);
 
-  if (isLoading || !partnerInfo) {
+  useEffect(() => {
+    if (!partnerInfo?.id) return;
+
+    const channel = supabase
+      .channel(`partner-profile-${partnerInfo.id}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "partners", filter: `id=eq.${partnerInfo.id}` },
+        (payload) => {
+          if (payload.eventType === "DELETE") {
+            qc.removeQueries({ queryKey: ["partner-profile", partnerKey] });
+            navigate("/ai-partners", { replace: true });
+            return;
+          }
+
+          qc.invalidateQueries({ queryKey: ["partner-profile", partnerKey] });
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [navigate, partnerInfo?.id, partnerKey, qc]);
+
+  if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (isError || !partnerInfo) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-4 text-center">
+        <div className="max-w-md space-y-3">
+          <h1 className="text-xl font-semibold text-slate-900">Provider profile unavailable</h1>
+          <p className="text-sm text-slate-600">
+            This provider may have been deleted or is no longer public. Try the providers list instead.
+          </p>
+        </div>
       </div>
     );
   }

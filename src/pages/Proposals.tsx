@@ -147,11 +147,13 @@ const Proposals = () => {
   const handleDeleteProposal = async () => {
     if (!deleteTarget) return;
     try {
-      
-      await supabase.from("partner_tool_details").delete().eq("partner_id", deleteTarget.id);
-      
-      const { error } = await supabase.from("partners").delete().eq("id", deleteTarget.id);
+      const { data: deleted, error } = await supabase.rpc("delete_partner_as_super_admin", {
+        _partner_id: deleteTarget.id,
+      });
       if (error) throw error;
+      if (!deleted) {
+        throw new Error("The proposal record still exists. Please refresh and try again.");
+      }
 
       await logAudit("proposal.deleted", "partners", deleteTarget.id, { name: deleteTarget.name }, null);
       toast({ title: "Deleted", description: `"${deleteTarget.name}" has been removed.` });
