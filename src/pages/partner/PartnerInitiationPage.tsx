@@ -9,11 +9,13 @@ import { Label } from "@/components/ui/label";
 import PartnerFlowStepper from "@/components/partner/PartnerFlowStepper";
 import { getDraft, setDraft } from "@/lib/partnerOnboardingDraft";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const PartnerInitiationPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const initial = getDraft();
+  const [missingFields, setMissingFields] = useState<string[]>([]);
 
   const [form, setForm] = useState({
     orgName: initial.orgName ?? "",
@@ -25,13 +27,24 @@ const PartnerInitiationPage = () => {
     contactEmail: initial.contactEmail ?? "",
   });
 
-  const update = (k: keyof typeof form, v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const update = (k: keyof typeof form, v: string) => {
+    setForm((f) => ({ ...f, [k]: v }));
+    if (v.trim()) {
+      setMissingFields((current) => current.filter((field) => field !== k));
+    }
+  };
 
   const handleContinue = () => {
-    if (!form.orgName.trim() || !form.description.trim() || !form.contactEmail.trim()) {
+    const missing = (["orgName", "description", "contactEmail"] as const).filter(
+      (field) => !form[field].trim(),
+    );
+
+    if (missing.length > 0) {
+      setMissingFields([...missing]);
       toast({ title: "Required fields missing", variant: "destructive" });
       return;
     }
+    setMissingFields([]);
     setDraft({ ...form });
     navigate("/partner/account-setup");
   };
@@ -58,24 +71,44 @@ const PartnerInitiationPage = () => {
           <CardContent className="space-y-6">
             <div className="grid gap-5 md:grid-cols-2">
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="org-name">Organization Name *</Label>
+                <Label htmlFor="org-name" className={cn(missingFields.includes("orgName") && "text-destructive")}>
+                  Organization Name *
+                </Label>
                 <Input
                   id="org-name"
                   value={form.orgName}
                   onChange={(e) => update("orgName", e.target.value)}
                   placeholder="Enter Company/Organization Name"
+                  aria-invalid={missingFields.includes("orgName")}
+                  className={cn(
+                    missingFields.includes("orgName") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
                 />
+                {missingFields.includes("orgName") && (
+                  <p className="text-sm text-destructive">Organization name is required.</p>
+                )}
               </div>
 
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="org-desc">Concept Note / Organization Vision *</Label>
+                <Label htmlFor="org-desc" className={cn(missingFields.includes("description") && "text-destructive")}>
+                  Concept Note / Organization Vision *
+                </Label>
                 <Textarea
                   id="org-desc"
                   value={form.description}
                   onChange={(e) => update("description", e.target.value)}
                   placeholder="Provide Organization briefer...."
                   rows={4}
+                  aria-invalid={missingFields.includes("description")}
+                  className={cn(
+                    missingFields.includes("description") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
                 />
+                {missingFields.includes("description") && (
+                  <p className="text-sm text-destructive">Concept note or organization vision is required.</p>
+                )}
               </div>
 
               <div className="space-y-2 md:col-span-2">
@@ -108,14 +141,24 @@ const PartnerInitiationPage = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="contact-email">Contact Email *</Label>
+                <Label htmlFor="contact-email" className={cn(missingFields.includes("contactEmail") && "text-destructive")}>
+                  Contact Email *
+                </Label>
                 <Input
                   id="contact-email"
                   type="email"
                   value={form.contactEmail}
                   onChange={(e) => update("contactEmail", e.target.value)}
                   placeholder="name@domain.org"
+                  aria-invalid={missingFields.includes("contactEmail")}
+                  className={cn(
+                    missingFields.includes("contactEmail") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
                 />
+                {missingFields.includes("contactEmail") && (
+                  <p className="text-sm text-destructive">Contact email is required.</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contact-num">Contact Number</Label>
