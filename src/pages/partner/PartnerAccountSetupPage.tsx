@@ -201,7 +201,7 @@ const PartnerAccountSetupPage = () => {
                   type="email"
                   value={form.email}
                   onChange={(e) => update("email", e.target.value)}
-                  placeholder="partner@organization.org"
+                  placeholder="email"
                   aria-invalid={missingFields.includes("email")}
                   className={cn(
                     missingFields.includes("email") &&
@@ -218,11 +218,11 @@ const PartnerAccountSetupPage = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="acc-position">Contact position</Label>
-                <Input id="acc-position" value={form.contactPosition} onChange={(e) => update("contactPosition", e.target.value)} placeholder="e.g. Director" />
+                <Input id="acc-position" value={form.contactPosition} onChange={(e) => update("contactPosition", e.target.value)} placeholder="Position" />
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="acc-number">Contact number</Label>
-                <Input id="acc-number" type="tel" value={form.contactNumber} onChange={(e) => update("contactNumber", e.target.value)} placeholder="+63 ..." />
+                <Input id="acc-number" type="tel" value={form.contactNumber} onChange={(e) => update("contactNumber", e.target.value)} placeholder="Phone no." />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="acc-pass" className={cn(missingFields.includes("password") && "text-destructive")}>

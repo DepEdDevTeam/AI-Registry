@@ -78,7 +78,7 @@ const PartnerInitiationPage = () => {
                   id="org-name"
                   value={form.orgName}
                   onChange={(e) => update("orgName", e.target.value)}
-                  placeholder="Enter Company/Organization Name"
+                  placeholder="Enter Company / Organization Name"
                   aria-invalid={missingFields.includes("orgName")}
                   className={cn(
                     missingFields.includes("orgName") &&
@@ -137,7 +137,7 @@ const PartnerInitiationPage = () => {
                   id="contact-pos"
                   value={form.contactPosition}
                   onChange={(e) => update("contactPosition", e.target.value)}
-                  placeholder="e.g. Program Director"
+                  placeholder="Position / Designation"
                 />
               </div>
               <div className="space-y-2">
@@ -149,7 +149,7 @@ const PartnerInitiationPage = () => {
                   type="email"
                   value={form.contactEmail}
                   onChange={(e) => update("contactEmail", e.target.value)}
-                  placeholder="name@domain.org"
+                  placeholder="Email Address"
                   aria-invalid={missingFields.includes("contactEmail")}
                   className={cn(
                     missingFields.includes("contactEmail") &&
