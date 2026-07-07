@@ -10,6 +10,7 @@ import { getDraft, setDraft, clearDraft } from "@/lib/partnerOnboardingDraft";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const DEFAULT_THEME = { primary: "#3B82F6", secondary: "#1E40AF", accent: "#60A5FA" };
 
@@ -27,15 +28,26 @@ const PartnerAccountSetupPage = () => {
     password2: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  const [missingFields, setMissingFields] = useState<string[]>([]);
 
-  const update = (k: keyof typeof form, v: string) =>
+  const update = (k: keyof typeof form, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
+    if (v.trim()) {
+      setMissingFields((current) => current.filter((field) => field !== k));
+    }
+  };
 
   const handleContinue = async () => {
-    if (!form.orgName.trim() || !form.email.trim() || !form.password) {
+    const missing = (["orgName", "email", "password", "password2"] as const).filter(
+      (field) => !form[field].trim(),
+    );
+
+    if (missing.length > 0) {
+      setMissingFields([...missing]);
       toast({ title: "Missing required fields", variant: "destructive" });
       return;
     }
+    setMissingFields([]);
     if (form.password.length < 6) {
       toast({ title: "Password must be at least 6 characters", variant: "destructive" });
       return;
@@ -162,12 +174,43 @@ const PartnerAccountSetupPage = () => {
           <CardContent className="space-y-5">
             <div className="grid gap-5 md:grid-cols-2">
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="acc-org">Organization name *</Label>
-                <Input id="acc-org" value={form.orgName} onChange={(e) => update("orgName", e.target.value)} placeholder="Organization legal name" />
+                <Label htmlFor="acc-org" className={cn(missingFields.includes("orgName") && "text-destructive")}>
+                  Organization name *
+                </Label>
+                <Input
+                  id="acc-org"
+                  value={form.orgName}
+                  onChange={(e) => update("orgName", e.target.value)}
+                  placeholder="Organization legal name"
+                  aria-invalid={missingFields.includes("orgName")}
+                  className={cn(
+                    missingFields.includes("orgName") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
+                />
+                {missingFields.includes("orgName") && (
+                  <p className="text-sm text-destructive">Organization name is required.</p>
+                )}
               </div>
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="acc-email">Official email address *</Label>
-                <Input id="acc-email" type="email" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="partner@organization.org" />
+                <Label htmlFor="acc-email" className={cn(missingFields.includes("email") && "text-destructive")}>
+                  Official email address *
+                </Label>
+                <Input
+                  id="acc-email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => update("email", e.target.value)}
+                  placeholder="partner@organization.org"
+                  aria-invalid={missingFields.includes("email")}
+                  className={cn(
+                    missingFields.includes("email") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
+                />
+                {missingFields.includes("email") && (
+                  <p className="text-sm text-destructive">Official email address is required.</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="acc-contact">Primary contact name</Label>
@@ -182,12 +225,44 @@ const PartnerAccountSetupPage = () => {
                 <Input id="acc-number" type="tel" value={form.contactNumber} onChange={(e) => update("contactNumber", e.target.value)} placeholder="+63 ..." />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="acc-pass">Password *</Label>
-                <Input id="acc-pass" type="password" value={form.password} onChange={(e) => update("password", e.target.value)} placeholder="At least 6 characters" />
+                <Label htmlFor="acc-pass" className={cn(missingFields.includes("password") && "text-destructive")}>
+                  Password *
+                </Label>
+                <Input
+                  id="acc-pass"
+                  type="password"
+                  value={form.password}
+                  onChange={(e) => update("password", e.target.value)}
+                  placeholder="At least 6 characters"
+                  aria-invalid={missingFields.includes("password")}
+                  className={cn(
+                    missingFields.includes("password") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
+                />
+                {missingFields.includes("password") && (
+                  <p className="text-sm text-destructive">Password is required.</p>
+                )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="acc-pass2">Confirm password *</Label>
-                <Input id="acc-pass2" type="password" value={form.password2} onChange={(e) => update("password2", e.target.value)} placeholder="Re-enter password" />
+                <Label htmlFor="acc-pass2" className={cn(missingFields.includes("password2") && "text-destructive")}>
+                  Confirm password *
+                </Label>
+                <Input
+                  id="acc-pass2"
+                  type="password"
+                  value={form.password2}
+                  onChange={(e) => update("password2", e.target.value)}
+                  placeholder="Re-enter password"
+                  aria-invalid={missingFields.includes("password2")}
+                  className={cn(
+                    missingFields.includes("password2") &&
+                      "border-destructive focus-visible:ring-destructive",
+                  )}
+                />
+                {missingFields.includes("password2") && (
+                  <p className="text-sm text-destructive">Please confirm your password.</p>
+                )}
               </div>
             </div>
           </CardContent>
