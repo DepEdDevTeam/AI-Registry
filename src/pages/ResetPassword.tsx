@@ -217,7 +217,7 @@ const ResetPassword = () => {
                         type={show ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••"
+                        placeholder="password"
                         required
                         disabled={loading}
                         className="pr-10 bg-background/60"
@@ -263,7 +263,7 @@ const ResetPassword = () => {
                       type={show ? "text" : "password"}
                       value={confirm}
                       onChange={(e) => setConfirm(e.target.value)}
-                      placeholder="••••••••"
+                      placeholder="confirm password"
                       required
                       disabled={loading}
                       className="bg-background/60"
