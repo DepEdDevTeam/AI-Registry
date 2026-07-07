@@ -72,17 +72,15 @@ const UserManagement = () => {
   const handleRoleChange = async (userId: string, newRole: string) => {
     setUpdating(userId);
     const oldRole = getUserRole(userId);
-    const existing = roles.find(r => r.user_id === userId);
 
     try {
-      if (existing) {
-        if (newRole === "user") {
-          await supabase.from("user_roles").delete().eq("user_id", userId);
-        } else {
-          await supabase.from("user_roles").update({ role: newRole as any }).eq("user_id", userId);
-        }
-      } else if (newRole !== "user") {
-        await supabase.from("user_roles").insert({ user_id: userId, role: newRole as any });
+      const { error } = await supabase.rpc("admin_set_user_role", {
+        _user_id: userId,
+        _role: newRole as AppRole,
+      });
+
+      if (error) {
+        throw error;
       }
 
       await logAudit("role.changed", "user_roles", userId, { role: oldRole }, { role: newRole });
@@ -98,12 +96,14 @@ const UserManagement = () => {
   const handleDeleteUser = async (profile: Profile) => {
     setDeleting(profile.id);
     try {
-      const { data, error } = await supabase.functions.invoke("delete-user", {
-        body: { userId: profile.id },
+      const { data, error } = await supabase.rpc("admin_delete_user", {
+        _user_id: profile.id,
       });
-      if (error || (data as any)?.error) {
-        throw new Error((data as any)?.error || error?.message || "Failed to delete user");
+
+      if (error || !data) {
+        throw new Error(error?.message || "Failed to delete user");
       }
+
       await logAudit("user.deleted", "auth.users", profile.id, { display_name: profile.display_name }, null);
       toast({ title: "User Deleted", description: `${profile.display_name} has been removed.` });
       setConfirmDelete(null);
