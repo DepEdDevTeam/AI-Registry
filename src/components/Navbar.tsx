@@ -43,9 +43,9 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4" aria-label="Main navigation">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold text-primary">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
+          {/* <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
             AI
-          </div>
+          </div> */}
           <span className="hidden sm:inline">DepEd AI Registry</span>
         </Link>
 

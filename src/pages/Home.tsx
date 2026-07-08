@@ -16,13 +16,6 @@ const Home = () => {
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 py-20 sm:py-28">
         {/* HERO */}
         <section className="flex flex-col items-center text-center">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-1.5 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-indigo-300">
-              Responsible AI in Education
-            </span>
-          </div>
-
           <img src={depedLogo} alt="DepEd" className="mb-6 h-24 w-auto opacity-90" />
 
           <h1 className="font-display text-6xl font-extrabold tracking-tight text-white sm:text-7xl md:text-8xl">
