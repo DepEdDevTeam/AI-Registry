@@ -22,6 +22,7 @@ const Proposals = lazy(() => import("./pages/Proposals"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
+const Workspace = lazy(() => import("./pages/Workspace"));
 const PartnerOnboardingLandingPage = lazy(() => import("./pages/partner/PartnerOnboardingLandingPage"));
 const PartnerInitiationPage = lazy(() => import("./pages/partner/PartnerInitiationPage"));
 const PartnerAccountSetupPage = lazy(() => import("./pages/partner/PartnerAccountSetupPage"));
@@ -60,6 +61,7 @@ const App = () => (
             <Route path="/partner/initiation" element={<PartnerInitiationPage />} />
             <Route path="/partner/account-setup" element={<PartnerAccountSetupPage />} />
             <Route path="/partner/provider-profile" element={<ProviderProfilePage />} />
+            <Route path="/workspace" element={<Workspace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

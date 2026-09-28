@@ -35,6 +35,7 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
   const [fetching, setFetching] = useState(false);
   const [riskApproved, setRiskApproved] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const { toast } = useToast();
 
   const [form, setForm] = useState({
@@ -52,6 +53,7 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
     if (open && existingDetailId) {
       setFetching(true);
       setConfirmDelete(false);
+      setCurrentPage(1);
       
       // 2. Fetch tool details directly from Postgres
       const fetchDetail = async () => {
@@ -91,6 +93,7 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
       });
       setRiskApproved(false);
       setConfirmDelete(false);
+      setCurrentPage(1);
     }
   }, [open, existingDetailId]);
 
@@ -199,7 +202,7 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] w-[calc(100%-2rem)] overflow-y-auto sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
@@ -218,6 +221,16 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
           </div>
         ) : (
           <div className="space-y-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <p className="text-sm font-medium">Step {currentPage} of 3</p>
+              <div className="flex gap-1.5" aria-label="Form progress">
+                {[1, 2, 3].map((step) => (
+                  <span key={step} className={`h-1.5 w-8 rounded-full ${step === currentPage ? "bg-primary" : "bg-muted"}`} />
+                ))}
+              </div>
+            </div>
+
+            {currentPage === 1 && <div className="space-y-4">
             <div className="space-y-1.5">
               <Label>Risk Classification</Label>
               {riskReadOnly ? (
@@ -257,7 +270,9 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
                 <a href={form.tool_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline">Visit tool →</a>
               )}
             </div>
+            </div>}
 
+            {currentPage === 2 && <div className="space-y-4">
             <div className="space-y-1.5">
               <Label>Intended Use</Label>
               <Textarea placeholder="Describe the intended educational use..." value={form.intended_use} onChange={(e) => setForm({ ...form, intended_use: e.target.value })} rows={2} />
@@ -272,7 +287,9 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
               <Label>Compliance Assessment</Label>
               <Textarea placeholder="DepEd Order compliance, Data Privacy Act..." value={form.compliance_assessment} onChange={(e) => setForm({ ...form, compliance_assessment: e.target.value })} rows={2} />
             </div>
+            </div>}
 
+            {currentPage === 3 && <div className="space-y-4">
             <div className="space-y-1.5">
               <Label>Responsible Officer</Label>
               <Input placeholder="Name and position" value={form.responsible_officer} onChange={(e) => setForm({ ...form, responsible_officer: e.target.value })} />
@@ -282,6 +299,7 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
               <Label>Oversight Mechanism</Label>
               <Textarea placeholder="Monitoring, reporting, review cycles..." value={form.oversight_mechanism} onChange={(e) => setForm({ ...form, oversight_mechanism: e.target.value })} rows={2} />
             </div>
+            </div>}
           </div>
         )}
 
@@ -309,11 +327,16 @@ const ToolDetailModal = ({ open, onClose, toolName, partnerId, proposalId, exist
             )
           )}
           <div className="flex gap-2 ml-auto">
+            {currentPage > 1 && <Button variant="outline" onClick={() => setCurrentPage((page) => page - 1)} disabled={loading}>Previous</Button>}
+            {currentPage < 3 ? (
+              <Button onClick={() => setCurrentPage((page) => page + 1)} disabled={loading || fetching}>Next</Button>
+            ) : (
+              <Button onClick={handleSave} disabled={loading || fetching}>
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Save Details
+              </Button>
+            )}
             <Button variant="outline" onClick={onClose} disabled={loading}>Cancel</Button>
-            <Button onClick={handleSave} disabled={loading || fetching}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Save Details
-            </Button>
           </div>
         </DialogFooter>
       </DialogContent>

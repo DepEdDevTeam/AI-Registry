@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Moon, Sun, LogIn, ChevronDown, LogOut, LayoutDashboard, ShieldCheck, MessageSquarePlus, Users, UserCircle, ClipboardList } from "lucide-react";
+import { Menu, X, Moon, Sun, LogIn, LayoutDashboard } from "lucide-react";
 import { useDarkMode } from "../hooks/use-dark-mode";
 import { supabase } from "@/integrations/supabase/client";
 import { useRole } from "@/hooks/use-role";
 import type { User } from "@supabase/supabase-js";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -69,46 +61,14 @@ const Navbar = () => {
             </button>
           )}
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="hidden md:flex items-center gap-1 rounded-lg p-2 text-muted-foreground hover:bg-secondary transition-colors">
-                  <Users className="h-5 w-5" />
-                  <ChevronDown className="h-3 w-3" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel className="text-xs truncate">{user.email}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {isPartner ? (
-                  <DropdownMenuItem onClick={() => navigate("/partner/status")}>
-                    <ClipboardList className="mr-2 h-4 w-4" /> Status
-                  </DropdownMenuItem>
-                ) : (
-                  <>
-                    <DropdownMenuItem onClick={() => navigate("/profile")}>
-                      <UserCircle className="mr-2 h-4 w-4" /> My Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate("/proposals")}>
-                      <MessageSquarePlus className="mr-2 h-4 w-4" /> Proposals
-                    </DropdownMenuItem>
-                  </>
-                )}
-                {isAdminOrAbove && (
-                  <DropdownMenuItem onClick={() => navigate("/admin")}>
-                    <ShieldCheck className="mr-2 h-4 w-4" /> Admin Panel
-                  </DropdownMenuItem>
-                )}
-                {isSuperAdmin && (
-                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>
-                    <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="text-destructive">
-                  <LogOut className="mr-2 h-4 w-4" /> Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link
+              to="/workspace"
+              className="hidden items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:flex"
+              aria-label="Open your workspace"
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              <span>Workspace</span>
+            </Link>
           ) : (
             <Link
               to="/auth"
@@ -139,6 +99,7 @@ const Navbar = () => {
           <div className="my-2 border-t border-border" />
           {user ? (
             <>
+              <MobileLink to="/workspace" onClick={() => setMobileOpen(false)}>Workspace</MobileLink>
                {isPartner ? (
                  <MobileLink to="/partner/status" onClick={() => setMobileOpen(false)}>Status</MobileLink>
                ) : (
